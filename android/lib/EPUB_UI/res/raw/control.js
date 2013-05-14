@@ -486,8 +486,7 @@ function setBookmarkImg(){
         $afd_currentPage.show();
         $afd_scale_panel.hide();
     }	
-    $
-    in.hide();
+    $afd_zoomin.hide();
     $afd_zoomout.hide();
 }
 
