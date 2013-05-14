@@ -676,13 +676,13 @@ function onMove(ev){
         ev.preventDefault();
     }
 }
-
+/*We have durationg of animation to 0ms*/
 function onEnd(ev){
 	if (navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)) {
 	    if (multipleTouch ==1){
             $afd_content.animate({
                                  left : leftPosition
-                                 }, 100);
+                                 }, 0);
             moveTemp = 0;
             tempX = 0;
             return;
@@ -699,17 +699,27 @@ function onEnd(ev){
     var halfWidth = layoutWidth / 6;
     if (startX >= halfWidth) {
         if (currentPage < pages && moveTemp < -halfWidth * 0.5) {
-            
+            if (currentPage < pages) {
             tempPosition = leftPosition - layoutWidth;
             $afd_content.animate({
                                  left : tempPosition
-                                 }, 100);
+                                 }, 0);
             currentPage = currentPage + 1;
+            } 
+        else { 
+         $afd_content.animate({ left : leftPosition}, 0); 
+        alert("Chapter Ends!"); 
+        showMenu = 1; 
+        $afd_menu.show(); 
+            $afd_bottomMenu.show(); 
+                currentPage=1; 
+                openChapter(chapterIndex,"next"); 
+         } 
             getReadingPercent();
         } else {
             $afd_content.animate({
                                  left : leftPosition
-                                 }, 100);
+                                 }, 0);
         }
     }
     if (startX < halfWidth) {
@@ -718,13 +728,13 @@ function onEnd(ev){
             tempPosition = leftPosition + layoutWidth;
             $afd_content.animate({
                                  left : tempPosition
-                                 }, 100);
+                                 }, 0);
             currentPage = currentPage - 1;
             getReadingPercent();
         } else {
             $afd_content.animate({
                                  left : leftPosition
-                                 }, 100);
+                                 }, 0);
         }
     }
     
