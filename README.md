@@ -18,10 +18,9 @@ The only requirement is that when you distribute your program you have to indica
 
 Our Contribution
 =================
-* 20130514  Scale Panel added for text size alteration
-            Auto Opening Next Chapter and Swifter Page turning
+* 20130514  Scale Panel added for text size alteration, 
+            Auto Opening Next Chapter and Swifter Page turning, 
             Flip Page Time
-=================
 
 **********************
 =================
