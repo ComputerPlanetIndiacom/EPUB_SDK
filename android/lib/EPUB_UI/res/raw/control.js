@@ -641,7 +641,7 @@ function onStart(ev) {
 	    setTimeout(function(){showMenu=0;},300);
     } 
     
-	if (currentPage==1&&startX<layoutWidth/2){
+	if (currentPage==1&&startX<layoutWidth/6){
 		preventMove =1;
 		return;
 	}
@@ -696,7 +696,7 @@ function onEnd(ev){
     }
     if (preventMove == 1)
         return;
-    var halfWidth = layoutWidth / 2;
+    var halfWidth = layoutWidth / 6;
     if (startX >= halfWidth) {
         if (currentPage < pages && moveTemp < -halfWidth * 0.5) {
             
