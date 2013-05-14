@@ -26,7 +26,7 @@ var androidLongtouch = 0;
 var multipleTouch = 0;
 var bookmark = new Array();
 var androidVersion = 0;
-
+var fontsiz=1.6;
 /** Inject span tag */
 function injectSpanTag(pArray){
     for (var j=0;j<pArray.length;j++){
@@ -486,7 +486,8 @@ function setBookmarkImg(){
         $afd_currentPage.show();
         $afd_scale_panel.hide();
     }	
-    $afd_zoomin.hide();
+    $
+    in.hide();
     $afd_zoomout.hide();
 }
 
@@ -751,8 +752,11 @@ function addListener() {
     
 	document.getElementById("afd_pageturn").addEventListener("touchstart",
                                                              onStart, false);
-	document.getElementById("afd_zoom").addEventListener("click",
-                                                         hiddenFontSizeLayout, false);
+	/*document.getElementById("afd_zoom").addEventListener("click",
+                                                         hiddenFontSizeLayout, false);*/
+       document.getElementById("afd_zoom").addEventListener("click",function()
+                                                            {displayScalepanel("fontasize")}, false);
+       
 	document.getElementById("afd_zoomin").addEventListener("click",
                                                            fontSizeZoomin, false);
 	document.getElementById("afd_zoomout").addEventListener("click",
@@ -953,6 +957,10 @@ init:function (tag){
         floatPercent = 1-brightness;
         currentValue = floatPercent*barWidth;
     }
+     if (tag=="fontasize"){
+    	    console.log(fontsiz);
+        currentValue = fontsiz;
+    	}
     
     afd_button.style.left = currentValue-11+"px";
     afd_step.style.width = currentValue+"px";
@@ -966,6 +974,13 @@ init:function (tag){
         currentValue = parseInt(floatPercent * 100) / 100.0;
         t.ondrag(currentValue);
     }
+    
+     if (tag=="fontasize"){
+	currentValue = parseInt(floatPercent * 100 * 100) / 100.0;
+	console.log(currentValue);
+        t.ondrag(currentValue);
+    	}
+    	
     afd_bar.ontouchstart=function (e){
         var value = e.touches[0].pageX-$(afd_bar).offset().left;
         if (0<value&&value<barWidth){
@@ -982,6 +997,13 @@ init:function (tag){
                 var tempBrightness = 1 - value;
                 t.onbrightness(tempBrightness);
             }
+            if (tag=="fontasize"){
+                value = parseInt(value * 100 * 100) / 100.0;
+                t.ondrag(value);          
+                var tempfontsize = value;
+                console.log(tempfontsize);  	
+            	t.onfontsize(tempfontsize);
+            	}
         }
     }
     afd_bar.ontouchmove=function (e){
@@ -1013,7 +1035,11 @@ init:function (tag){
         if (tag=="brightness"){
             saveSettingData("brightness",brightness);
         }
-    }
+        if (tag=="fontasize"){
+        	
+         saveSettingData("fontSize",parseInt(finalfontsize) + 1);
+        }
+      }
 },
 ondrag:function (value){
     this.value.innerHTML=value;
@@ -1029,6 +1055,14 @@ onjump:function (percent){
 onbrightness:function (tempBrightness){
     brightness = tempBrightness;
     $afd_pageturn.css("background-color","rgba(0,0,0,"+tempBrightness+")");
+},
+onfontsize:function (tempfontsize){
+	    
+    finalfontsize = tempfontsize;
+    console.log(finalfontsize);
+    $afd_content.css("font-size", parseInt(finalfontsize) + 3 + "px");
+    getReadingPercent();
+    saveReadingData();    	
 }
 }
 function setLayoutImag(){
