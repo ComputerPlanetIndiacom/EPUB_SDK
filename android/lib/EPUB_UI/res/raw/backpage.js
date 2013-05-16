@@ -9,7 +9,7 @@ function addListener_backToReading()
 
         if ((startPageX==startClientX)&&(stopPageX-startPageX)>window.innerWidth/2){
             if (navigator.userAgent.match(/Android/i)) {
-                Android.back();
+                //Android.back();
             }
             if (navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)) {
                 window.location = 'anreader:afd:myaction:afd:back';

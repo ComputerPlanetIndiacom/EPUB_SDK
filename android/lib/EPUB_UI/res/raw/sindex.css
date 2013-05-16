@@ -11,25 +11,26 @@ body{
 }
 
 #mystore{
-	font-size:21px;
+	font-size:25px;
 	font-weight:bold;
 	text-decoration:none;
 	width:100%;
 	text-align:center;
 	color:#492D0E;
 	position:absolute;
-	margin-top:22px;
+	margin-top:70px;
+	margin-right:10px;
 }
 
 #storemenu{
     background:url(../image/afd_topmenu.png);
 	width:100%;
-	height:70px;
+	height:100px;
 }
 
 #storemenu #quit{
     float:left;
-    width:40px;
+    width:80px;
     padding-left:10px;
     padding-top:22px;
 } 
@@ -39,7 +40,7 @@ body{
 }
 #storemenu #edit{
     float:right;
-    width:40px;
+    width:80px;
     padding-top:22px;
     padding-right:10px;
 }
@@ -51,8 +52,9 @@ body{
     position:absolute;
     float:right;
     padding-top:22px;
-	right:60px;
-    width:40px;
+    right:90px;
+    padding-right:5px;
+    width:80px;
 }
 #storemenu #import img{
 	position:relative;
@@ -135,17 +137,17 @@ body{
 
 #afd_editMenu #afd_editBox{
     margin:0 auto;
-    width:210px;
+    width:260px;
 }
 .afd_editItem{
     float:left;
     text-align:center;
-    width:70px;
+    width:80px;
 }
 
 .afd_editItem img{
     position:relative;
-    width:90%;
+    width:100%;
 }
 
 .afd_importdialog {
@@ -269,6 +271,16 @@ body{
     background-color:#ffffff;
     border-radius:2px;
     border-style:solid;
+}
+
+#afd_local .catalogbutton{
+		font-size:14px;
+		color:#000000;
+   padding:5px;
+   border-color:#5A9A30;
+   background-color:#ffffff;
+   border-radius:2px;
+   border-style:solid;
 }
 
 #afd_wifi{

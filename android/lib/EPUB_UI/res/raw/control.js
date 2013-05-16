@@ -1,4 +1,5 @@
 var path;
+var path;
 var startX;
 var startY;
 var layoutHeight;
@@ -145,7 +146,19 @@ function storeData(bookmarkData){
         }
     }
 }
-
+/**
+ * Stop show up menu when click on link
+ */
+function clickOnLinkListener() {
+	var a = document.getElementsByTagName("a");
+	for ( var i = 0; i < a.length; i++) {
+		a[i].addEventListener("touchstart", function clickOnLink(ev) {
+                              preventMove =1;
+                              showMenu =0;
+                              ev.stopPropagation();
+                              }, false);
+	}
+}
 /**
  * Get the current element content
  */
@@ -260,6 +273,9 @@ function getCurrentElementContent() {
 }
 /**
  * Native codes invoke the method when the webview loading finished
+ * 
+ * @param current_percent
+ * @param fontSize
  */
 function resizePage(current_percent, pIndex, sIndex, clickBk) {
     setTimeout(function(){
@@ -310,6 +326,8 @@ function resizePage(current_percent, pIndex, sIndex, clickBk) {
 
 /**
  * Figure out the total pages
+ * 
+ * @returns {pages}
  */
 function getPages() {
 	var layoutLeft = $("#afd_break").position().left;
@@ -533,6 +551,10 @@ function replacePText(){
 }
 /**
  * Get the size from native code
+ * 
+ * @param tempSize
+ * @param tempChapterSize
+ * @param tempBookSize
  */
 function getBookData(tempSize, tempChapterSize, tempBookSize, tempChapterIndex, tempchapterTotleNum,tempIdentifier,tempFilePath,title) {
 	chapterSize = tempChapterSize;
@@ -641,8 +663,12 @@ function onStart(ev) {
 	    setTimeout(function(){showMenu=0;},300);
     } 
     
-	if (currentPage==1&&startX<layoutWidth/6){
-		preventMove =1;
+/*Change*/	if (currentPage==1 &&startX<layoutWidth/6){
+		openChapter(chapterIndex,"preceding");
+		//currentPage=getPages();
+		//openChapter(chapterIndex+1,"preceding");
+		//preventMove =1;
+ 		
 		return;
 	}
     
@@ -676,7 +702,7 @@ function onMove(ev){
         ev.preventDefault();
     }
 }
-/*We have durationg of animation to 0ms*/
+
 function onEnd(ev){
 	if (navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)) {
 	    if (multipleTouch ==1){
@@ -696,32 +722,39 @@ function onEnd(ev){
     }
     if (preventMove == 1)
         return;
-    var halfWidth = layoutWidth / 6;
+/*change*/    var halfWidth = layoutWidth / 6;
     if (startX >= halfWidth) {
-        if (currentPage < pages && moveTemp < -halfWidth * 0.5) {
+        if (currentPage <= pages && moveTemp < -halfWidth * 0.5) {
+
             if (currentPage < pages) {
-            tempPosition = leftPosition - layoutWidth;
-            $afd_content.animate({
-                                 left : tempPosition
+												tempPosition = leftPosition - layoutWidth;
+												tempPosition = leftPosition - layoutWidth;
+												$afd_content.animate({
+                		left : tempPosition
+				     }, 0);
+            			currentPage = currentPage + 1;
+		}
+		else {
+		 $afd_content.animate({
+                                 left : leftPosition
                                  }, 0);
-            currentPage = currentPage + 1;
-            } 
-        else { 
-         $afd_content.animate({ left : leftPosition}, 0); 
-        alert("Chapter Ends!"); 
-        showMenu = 1; 
-        $afd_menu.show(); 
-            $afd_bottomMenu.show(); 
-                currentPage=1; 
-                openChapter(chapterIndex,"next"); 
-         } 
+                                 
+		//alert("Chapter Ends!"); 
+		showMenu = 1;
+		$afd_menu.show();
+        	$afd_bottomMenu.show();
+                currentPage=1;
+                openChapter(chapterIndex,"next");
+		 }
             getReadingPercent();
         } else {
-            $afd_content.animate({
+		 $afd_content.animate({
                                  left : leftPosition
                                  }, 0);
         }
     }
+
+
     if (startX < halfWidth) {
         if (currentPage > 1 && moveTemp > halfWidth * 0.5) {
             
@@ -753,9 +786,10 @@ function addListener() {
                                                              onStart, false);
 	/*document.getElementById("afd_zoom").addEventListener("click",
                                                          hiddenFontSizeLayout, false);*/
-       document.getElementById("afd_zoom").addEventListener("click",function()
+    
+  document.getElementById("afd_zoom").addEventListener("click",function()
                                                             {displayScalepanel("fontasize")}, false);
-       
+                                                           
 	document.getElementById("afd_zoomin").addEventListener("click",
                                                            fontSizeZoomin, false);
 	document.getElementById("afd_zoomout").addEventListener("click",
@@ -777,6 +811,7 @@ function addListener() {
                                                                      function(){openChapter(chapterIndex,"preceding");}, false);
     document.getElementById("afd_nextChapter").addEventListener("click",
                                                                 function(){openChapter(chapterIndex,"next");}, false);
+    clickOnLinkListener();
 }
 function getSvgTag(element,type){
     var svgElements = new Array();
@@ -901,9 +936,9 @@ function initDom() {
 }
 /**
  * Invoke native code to pass data to js
- * native code calls getBookData() and resizePage()
+ * native code calls getBookData() and setBookTitle() and resizePage()
  */
-function getNativeDataAndResizePage(){
+function getNativeData(){
 	if (navigator.userAgent.match(/Android/i)) {
 		Android.resizePage();
 	}
@@ -913,6 +948,8 @@ function getNativeDataAndResizePage(){
 }
 /**
  * Get the actual top
+ * @param element
+ * @returns
  */
 function getElementTop(element){
     var actualTop = element.offsetTop;
@@ -956,11 +993,10 @@ init:function (tag){
         floatPercent = 1-brightness;
         currentValue = floatPercent*barWidth;
     }
-     if (tag=="fontasize"){
-    	    console.log(fontsiz);
+    if (tag=="fontasize"){
+    	    //console.log(fontsiz);
         currentValue = fontsiz;
     	}
-    
     afd_button.style.left = currentValue-11+"px";
     afd_step.style.width = currentValue+"px";
     
@@ -973,15 +1009,14 @@ init:function (tag){
         currentValue = parseInt(floatPercent * 100) / 100.0;
         t.ondrag(currentValue);
     }
-    
-     if (tag=="fontasize"){
-	currentValue = parseInt(floatPercent * 100 * 100) / 100.0;
-	console.log(currentValue);
+    if (tag=="fontasize"){
+					currentValue = parseInt(floatPercent * 100 * 100) / 100.0;
+					//console.log(currentValue);
         t.ondrag(currentValue);
     	}
-    	
     afd_bar.ontouchstart=function (e){
         var value = e.touches[0].pageX-$(afd_bar).offset().left;
+        e.preventDefault(); 
         if (0<value&&value<barWidth){
             afd_button.style.left = value-11+"px";
             afd_step.style.width = value+"px";
@@ -1000,8 +1035,8 @@ init:function (tag){
                 value = parseInt(value * 100 * 100) / 100.0;
                 t.ondrag(value);          
                 var tempfontsize = value;
-                console.log(tempfontsize);  	
-            	t.onfontsize(tempfontsize);
+                //console.log(tempfontsize);  	
+            	   t.onfontsize(tempfontsize);
             	}
         }
     }
@@ -1021,6 +1056,12 @@ init:function (tag){
                 var tempBrightness = 1 - value;
                 t.onbrightness(tempBrightness);
             }
+            if (tag=="fontasize"){
+                value = parseInt(value * 100 * 100) / 100.0;
+                t.ondrag(value);            	
+            	   var tempfontsize = value;
+            	   t.onfontsize(tempfontsize);
+            	}
         }
         if (navigator.userAgent.match(/Android/i)) {
             e.preventDefault();
@@ -1036,19 +1077,22 @@ init:function (tag){
         }
         if (tag=="fontasize"){
         	
-         saveSettingData("fontSize",parseInt(finalfontsize) + 1);
-        }
-      }
+         saveSettingData("fontSize",parseInt(finalfontsize) + 3);
+         getReadingPercent();
+	 					saveReadingData();        	
+        	}
+        
+    }
 },
 ondrag:function (value){
     this.value.innerHTML=value;
 },
 onjump:function (percent){
 	if (navigator.userAgent.match(/Android/i)) {
-		Android.silderBarListener(percent);
+		Android.jump(percent);
     }
     if (navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPad/i)) {
-        window.location = 'anreader:afd:myaction:afd:silderBarListener:afd:'+ percent;
+        window.location = 'anreader:afd:myaction:afd:jump:afd:'+ percent;
     }    
 },
 onbrightness:function (tempBrightness){
@@ -1058,10 +1102,13 @@ onbrightness:function (tempBrightness){
 onfontsize:function (tempfontsize){
 	    
     finalfontsize = tempfontsize;
-    console.log(finalfontsize);
+    //console.log(finalfontsize);
     $afd_content.css("font-size", parseInt(finalfontsize) + 3 + "px");
     getReadingPercent();
-    saveReadingData();    	
+	 	 saveReadingData();
+	 
+	   
+    	
 }
 }
 function setLayoutImag(){
@@ -1094,6 +1141,10 @@ function openChapter(i,order){
         }
         else i=i-1;
     }
+    if(order=="lastpage"){
+					  alert("Trying to open Last Page");
+					  
+    	}
     if (order=="next"){
         if (i==chapterTotleNum-1){
             alert("The last chapter!");
@@ -1141,6 +1192,7 @@ function saveSettingData(key,value){
 function initSettings(){
     //$afd_pageturn.find("*").css({"background-color":"rgba(0,0,0,0)"});
 	var fontSize = readySettingData("fontSize");
+	fontsiz = fontSize;
 	if (fontSize !=null){
 		$afd_content.css("font-size", parseInt(fontSize) + "px");
 	}
@@ -1222,5 +1274,5 @@ $(document).ready(function() {
                   initDom();
                   initSettings();
                   addListener();
-                  getNativeDataAndResizePage();
+                  getNativeData();
                   });

@@ -33,7 +33,7 @@ body{
     z-index:1;
     left:0px;
     top:0px;
-    height:48px;
+    height:88px;
     display:none;
     border: #CCCCCC;
 	border-bottom:1px;
@@ -51,7 +51,7 @@ body{
     z-index:1;
     left:0px;
     bottom:0px;
-    height:48px;
+    height:68px;
     border: #CCCCCC;
     display:none;
 	border-bottom:0px;
@@ -65,9 +65,9 @@ body{
 #afd_menu #afd_bookmark{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
     position:absolute;
-    right:15px;
+    right:20px;
     width:40px;
-    height:48px;
+    height:88px;
     text-align:right;
     font-size:16px;
 }
@@ -75,15 +75,16 @@ body{
 #afd_menu #afd_bookmark img{
     position:relative;
     top:10px;
-    height:30px;
+    height:80px;
 }
 
 #afd_menu #afd_zoom{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
     position:absolute;
     right:50px;
+    padding-right:50px;
     width:50px;
-    height:48px;
+    height:88px;
     text-align:right;
     font-size:16px;
 }
@@ -92,17 +93,18 @@ body{
     position:relative;
     width:38px;
     top:10px;
+    height:80px;
 }
 
 #afd_menu #afd_title{
     position:absolute;
-    width:130px;
-    height:25px;
+    width:150px;
+    height:40px;
     text-align:center;
     text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;
-    font-size:20px;
+    font-size:28px;
     padding-left:10px;
     padding-right:10px;
 }
@@ -112,15 +114,16 @@ body{
     position:absolute;
     left:70px;
     width: 50px;
-    height:48px;
+    height:88px;
     text-align:left;
     font-size:16px;
 }
 
 #afd_menu #afd_TOC img{
-    position:relative;
-    width:20px;
+    position:relative;    
+    width:30px;
     top:16px;
+    height:60px;
 }
 
 #afd_menu #afd_bookshelf{
@@ -128,7 +131,7 @@ body{
     position:absolute;
     left:10px;
     width: 50px;
-    height:48px;
+    height:88px;
     text-align:left;
     font-size:16px;
 }
@@ -137,9 +140,9 @@ body{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
     position:relative;
     top:10px;
-    width:50px;
+    width:60px;
+    height:60px;
 }
-
 #afd_menu #afd_zoomin{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
     position:absolute;
@@ -174,7 +177,7 @@ body{
 
 #afd_bottomMenu #afd_precedingChapter{
     float:left;
-    height:48px;
+    height:68px;
     text-align:center;
     width:20%;
 }
@@ -183,7 +186,7 @@ body{
 }
 #afd_bottomMenu #afd_jumping{
     float:left;
-    height:48px;
+    height:68px;
     text-align:center;
     width:20%;
 }
@@ -192,7 +195,7 @@ body{
 }
 #afd_bottomMenu #afd_brightness{
     float:left;
-    height:48px;
+    height:68px;
     text-align:center;
     width:20%;
 }
@@ -202,7 +205,7 @@ body{
 
 #afd_bottomMenu #afd_setting{
     float:left;
-    height:48px;
+    height:68px;
     text-align:center;
     width:20%;
 }
@@ -211,7 +214,7 @@ body{
 }
 #afd_bottomMenu #afd_nextChapter{
     float:left;
-    height:48px;
+    height:68px;
     text-align:center;
     width:20%;
 }
@@ -221,25 +224,25 @@ body{
 #afd_bottomMenu #afd_divide_1{
     position:absolute;
     width:2px;
-    height:48px;
+    height:58px;
     left:20%;
 }
 #afd_bottomMenu #afd_divide_2{
     position:absolute;
     width:2px;
-    height:48px;
+    height:58px;
     left:40%;
 }
 #afd_bottomMenu #afd_divide_3{
     position:absolute;
     width:2px;
-    height:48px;
+    height:58px;
     left:60%;
 }
 #afd_bottomMenu #afd_divide_4{
     position:absolute;
     width:2px;
-    height:48px;
+    height:58px;
     left:80%;
 }
 
@@ -253,17 +256,17 @@ body{
     width: 100px;
     bottom:10px;
     left: 10px;
-    font-size: 12px;
+    font-size: 20px;
 }
 
 .afd_scale_panel{
     display:none;
     height:60px;
     z-index:1;
-	font-size:12px;
+	font-size:16px;
 	background-color:rgba(0,0,0,0.6);
 	position:fixed; 
-	line-height:18px; 
+	line-height:20px; 
 	bottom:0px;
     left:0px;
     right:0px;
@@ -277,8 +280,8 @@ body{
 }
 .afd_scale span{
 	background: no-repeat; 
-	width:22px;
-	height:22px; 
+	width:28px;
+	height:28px; 
 	position:absolute; 
 	left:-11px;
 	top:-6px;
@@ -287,7 +290,7 @@ body{
 .afd_scale{
 	background:#A8A8A8 repeat-x 0 100%;
 	width:80%;
-	height:10px; 
+	height:20px; 
 	position:relative; 
 	font-size:0px;
     margin-left:15%;
@@ -300,7 +303,7 @@ body{
 	position:absolute; 
 	width:0;
 	left:0;
-	height:10px;
+	height:20px;
 	bottom:0;
     border-radius:5px;
 }
