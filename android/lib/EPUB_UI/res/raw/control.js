@@ -858,7 +858,11 @@ function initDom() {
     
     var twitter = "<div class='afd_shareItem'><a id='afd_twitter_button' target='_blank' href ='#'><span><img/>Twitter</span></a></div>";
     var googleShare = "<div class='afd_shareItem'><a id='afd_gplus' href='#'><span><img/>Google+</span></a></div>";
+    var google = "<div class='afd_shareItem'><a id='afd_gsearch' href='#'><span><img/>Google Search</span></a></div>";
+    var wiki = "<div class='afd_shareItem'><a id='afd_wiki' href='#'><span><img/>Wikipedia Search</span></a></div>";
     $afd_sharingBox = $("#afd_sharingBox");
+    $afd_sharingBox.append(google);
+    $afd_sharingBox.append(wiki);
     $afd_sharingBox.append(googleShare); 
     $afd_sharingBox.append(twitter); 
     
@@ -1229,6 +1233,10 @@ function showSharingPage(){
         window.getSelection().empty();                 
         $("#afd_twitter_button").attr('href',"http://twitter.com/intent/tweet?source=sharethiscom&text="+text);
         $("#afd_twitter_button img").attr('src',path+"/image/twitter_bird_callout.png");
+        $("#afd_gsearch").attr('href',"https://www..google.com/search?q="+text);
+        $("#afd_gsearch img").attr('src',path+"/image/search.png");
+        $("#afd_wiki").attr('href',"https://http://en.wikipedia.org/wiki/"+text);
+        $("#afd_wiki img").attr('href',path+"/image/wikipedia.png");
         $("#afd_gplus").attr('href',"https://m.google.com/app/plus/x/aoyapxt82rpw/?v=compose&group=m1c&hideloc=1&content="+text);
         $("#afd_gplus img").attr('src',path+"/image/gplus_64.png");
         $afd_sharingBox.show();
