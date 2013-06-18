@@ -1272,7 +1272,7 @@ function resetViewport(){
     var metas = $("head").find("meta");
     for (var i=0;i<metas.length;i++){
         if ($(metas[i]).attr('name')=="viewport"){
-            $(metas[i]).replaceWith("<meta name=\"viewport\" content=\"width=device-width, height=device-height\"/>");
+            $(metas[i]).replaceWith("<meta name=\"viewport\" content=\"width=device-width, height=device-height, initial-scale=1\"/>");
             return;
         }
     }
